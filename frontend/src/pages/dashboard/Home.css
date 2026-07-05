@@ -1,0 +1,244 @@
+.dashboard-page{
+
+    width:100%;
+
+}
+
+.hero-card{
+
+    display:grid;
+
+    grid-template-columns:1fr 520px;
+
+    gap:50px;
+
+    padding:45px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    backdrop-filter:blur(18px);
+
+}
+
+.hero-left{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    width:max-content;
+
+    background:rgba(59,130,246,.15);
+
+    color:#60a5fa;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    margin-bottom:22px;
+
+}
+
+.hero-left h1{
+
+    font-size:52px;
+
+    color:#fff;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.hero-left p{
+
+    color:#94a3b8;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+    max-width:650px;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:35px;
+
+}
+
+.btn-primary-custom{
+
+    padding:15px 28px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2563eb;
+
+    color:#fff;
+
+}
+
+.btn-secondary-custom{
+
+    padding:15px 28px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:transparent;
+
+    color:white;
+
+}
+
+.hero-right{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
+.stats-grid{
+
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(180px,1fr));
+
+    gap:20px;
+
+}
+
+/* ================== Large Laptop ================== */
+
+@media(max-width:1400px){
+
+.hero-card{
+
+    grid-template-columns:1fr 460px;
+
+}
+
+.hero-left h1{
+
+    font-size:46px;
+
+}
+
+}
+
+/* ================== Laptop ================== */
+
+@media(max-width:1200px){
+
+.hero-card{
+
+    grid-template-columns:1fr;
+
+}
+
+.hero-right{
+
+    justify-content:center;
+
+}
+
+.stats-grid{
+
+    max-width:700px;
+
+}
+
+}
+
+/* ================== Tablet ================== */
+
+@media(max-width:768px){
+
+.hero-card{
+
+    padding:28px;
+
+}
+
+.hero-left h1{
+
+    font-size:36px;
+
+}
+
+.hero-left p{
+
+    font-size:15px;
+
+}
+
+.hero-buttons{
+
+    flex-direction:column;
+
+}
+
+.btn-primary-custom,
+
+.btn-secondary-custom{
+
+    width:100%;
+
+}
+
+.stats-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+}
+
+/* ================== Phone ================== */
+
+@media(max-width:480px){
+
+.hero-card{
+
+    padding:20px;
+
+}
+
+.hero-left h1{
+
+    font-size:30px;
+
+}
+
+.hero-left p{
+
+    font-size:14px;
+
+}
+}

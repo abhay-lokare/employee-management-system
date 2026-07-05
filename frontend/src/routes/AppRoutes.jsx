@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "../pages/Home";
-import Employees from "../pages/Employees";
-import AddEmployee from "../pages/AddEmployee";
-import EditEmployee from "../pages/EditEmployee";
-import Login from "../pages/Login";
-import NotFound from "../pages/NotFound";
+import Home from "../pages/dashboard/Home";
+import Employees from "../pages/employee/Employees";
+import AddEmployee from "../pages/employee/AddEmployee";
+import EditEmployee from "../pages/employee/EditEmployee";
+import Login from "../pages/auth/Login";
+import NotFound from "../pages/error/NotFound";
 
 const AppRoutes = () => {
   return (
