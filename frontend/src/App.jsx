@@ -1,8 +1,10 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 
-import Home from "./pages/dashboard/Home";
+import Employees from "./pages/employee/Employees";
+import Departments from "./pages/department/Departments";
+import Attendance from "./pages/attendance/Attendance";
 
 function App() {
 
@@ -10,13 +12,36 @@ function App() {
 
         <Routes>
 
+            {/* Default Page */}
+
             <Route
                 path="/"
+                element={<Navigate to="/employees" replace />}
+            />
+
+            <Route
+                path="/employees"
                 element={
                     <DashboardLayout>
+                        <Employees />
+                    </DashboardLayout>
+                }
+            />
 
-                        <Home />
+            <Route
+                path="/departments"
+                element={
+                    <DashboardLayout>
+                        <Departments />
+                    </DashboardLayout>
+                }
+            />
 
+            <Route
+                path="/attendance"
+                element={
+                    <DashboardLayout>
+                        <Attendance />
                     </DashboardLayout>
                 }
             />

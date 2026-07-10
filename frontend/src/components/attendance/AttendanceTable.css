@@ -1,0 +1,41 @@
+.attendance-table-card{
+
+    background:#111827;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    overflow:auto;
+
+}
+
+.attendance-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.attendance-table th{
+
+    padding:18px;
+
+    background:#1f2937;
+
+    color:white;
+
+    text-align:left;
+
+}
+
+.attendance-table td{
+
+    padding:18px;
+
+    color:#e5e7eb;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}

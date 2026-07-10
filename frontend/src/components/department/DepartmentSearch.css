@@ -1,0 +1,59 @@
+.department-search{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+.department-search-box{
+
+    width:360px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
+    padding:12px 18px;
+
+}
+
+.department-search-box input{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+}
+
+.department-search-box svg{
+
+    color:#94a3b8;
+
+}
+
+@media(max-width:768px){
+
+    .department-search-box{
+
+        width:100%;
+
+    }
+
+}

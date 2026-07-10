@@ -1,0 +1,47 @@
+.department-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+}
+
+.department-stat-card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:28px;
+
+}
+
+.department-stat-card h3{
+
+    color:white;
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.department-stat-card span{
+
+    color:#94a3b8;
+
+}
+
+@media(max-width:992px){
+
+    .department-stats{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

@@ -1,66 +1,67 @@
 import {
-    FaBell,
-    FaSearch,
-    FaBars
+  FaRegBell,
+  FaSearch,
+  FaBars
 } from "react-icons/fa";
 
 import "./Navbar.css";
 
 function Navbar({ toggleSidebar }) {
 
-    return (
+  return (
 
-        <header className="navbar-custom">
+    <header className="navbar-custom">
 
-            <button
-                className="menu-btn"
-                onClick={toggleSidebar}
-            >
-                <FaBars />
-            </button>
+      <button
+        className="menu-btn"
+        onClick={toggleSidebar}
+      >
+        <FaBars />
+      </button>
 
-            <div className="search-box">
+      <div className="search-box">
 
-                <FaSearch />
+        <FaSearch />
 
-                <input
-                    type="text"
-                    placeholder="Search employees..."
-                />
+        <input
+          type="text"
+          placeholder="Search employees..."
+        />
 
-            </div>
+      </div>
 
-            <div className="navbar-right">
+      <div className="navbar-right">
 
-                <div className="icon-btn">
+        <div className="icon-btn">
 
-                    <FaBell />
+          <div className="bell-wrapper">
+            <FaRegBell />
+            <span className="badge">3</span>
+          </div>
 
-                    <span className="badge">3</span>
+        </div>
 
-                </div>
+        <div className="profile">
 
-                <div className="profile">
+          <div className="avatar">
+            A
+          </div>
 
-                    <div className="avatar">
-                        A
-                    </div>
+          <div className="profile-info">
 
-                    <div className="profile-info">
+            <h6>Abhay</h6>
 
-                        <h6>Abhay</h6>
+            <span>Administrator</span>
 
-                        <span>Administrator</span>
+          </div>
 
-                    </div>
+        </div>
 
-                </div>
+      </div>
 
-            </div>
+    </header>
 
-        </header>
-
-    );
+  );
 
 }
 

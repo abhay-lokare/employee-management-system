@@ -1,0 +1,55 @@
+.attendance-search{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+.attendance-search-box{
+
+    width:380px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 18px;
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
+}
+
+.attendance-search-box svg{
+
+    color:#94a3b8;
+
+}
+
+.attendance-search-box input{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+}
+
+@media(max-width:768px){
+
+    .attendance-search-box{
+
+        width:100%;
+
+    }
+
+}

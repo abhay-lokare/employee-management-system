@@ -1,0 +1,149 @@
+.employee-modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:5000;
+
+    padding:20px;
+
+}
+
+.employee-modal{
+
+    width:100%;
+
+    max-width:650px;
+
+    background:#111827;
+
+    border-radius:24px;
+
+    padding:40px;
+
+    position:relative;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.close-btn{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    width:40px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1f2937;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.employee-modal-avatar{
+
+    width:90px;
+
+    height:90px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#8b5cf6);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.employee-modal h2{
+
+    color:white;
+
+    text-align:center;
+
+    margin-top:20px;
+
+}
+
+.employee-id{
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    margin-bottom:35px;
+
+}
+
+.employee-info-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px;
+
+}
+
+.employee-info-grid span{
+
+    color:#94a3b8;
+
+    font-size:13px;
+
+}
+
+.employee-info-grid h5{
+
+    color:white;
+
+    margin-top:6px;
+
+}
+
+@media(max-width:768px){
+
+    .employee-modal{
+
+        padding:25px;
+
+    }
+
+    .employee-info-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

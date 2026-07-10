@@ -1,0 +1,41 @@
+.department-table-card{
+
+    background:rgba(255,255,255,.04);
+
+    border-radius:22px;
+
+    overflow:auto;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.department-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.department-table th{
+
+    background:#1f2937;
+
+    color:white;
+
+    text-align:left;
+
+    padding:18px;
+
+}
+
+.department-table td{
+
+    padding:18px;
+
+    color:#e5e7eb;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
