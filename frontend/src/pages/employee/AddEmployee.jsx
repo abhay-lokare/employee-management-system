@@ -1,25 +1,60 @@
-import "../../styles/AddEmployee.css";
-
-import EmployeeHeader from "../../components/employee/EmployeeHeader";
-import EmployeeForm from "../../components/employee/EmployeeForm";
+import "../../styles/Employees.css";
 
 function AddEmployee() {
 
-  return (
+    return (
 
-      <div className="add-employee-page">
+        <div className="employee-page">
 
-        <EmployeeHeader
-            title="Add Employee"
-            subtitle="Create a new employee profile"
-            showButton={false}
-        />
+            <div className="page-header">
 
-        <EmployeeForm />
+                <h1>Add Employee</h1>
 
-      </div>
+                <p>Create a new employee profile.</p>
 
-  );
+            </div>
+
+            <div className="employee-form-card">
+
+                <div className="form-grid">
+
+                    <input type="text" placeholder="Full Name" />
+
+                    <input type="email" placeholder="Email" />
+
+                    <input type="text" placeholder="Phone Number" />
+
+                    <select>
+
+                        <option>Select Department</option>
+
+                        <option>Development</option>
+
+                        <option>HR</option>
+
+                        <option>Finance</option>
+
+                        <option>Marketing</option>
+
+                    </select>
+
+                    <input type="text" placeholder="Designation" />
+
+                    <input type="number" placeholder="Salary" />
+
+                </div>
+
+                <button className="primary-btn">
+
+                    Save Employee
+
+                </button>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 

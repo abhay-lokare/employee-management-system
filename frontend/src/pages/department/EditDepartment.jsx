@@ -1,22 +1,40 @@
-import "../../components/department/Departments.css";
-
-import DepartmentHeader from "../../components/department/DepartmentHeader";
+import "../../styles/Departments.css";
 
 function EditDepartment() {
 
     return (
 
-        <div className="departments-page">
+        <div className="department-page">
 
-            <DepartmentHeader
+            <div className="page-header">
 
-                title="Edit Department"
+                <h1>Edit Department</h1>
 
-                subtitle="Update department information"
+                <p>Update department details.</p>
 
-                showButton={false}
+            </div>
 
-            />
+            <div className="department-form-card">
+
+                <div className="form-grid">
+
+                    <input defaultValue="Development" />
+
+                    <input defaultValue="John Smith" />
+
+                    <input defaultValue="85" />
+
+                    <input defaultValue="Floor 3" />
+
+                </div>
+
+                <button className="primary-btn">
+
+                    Update Department
+
+                </button>
+
+            </div>
 
         </div>
 

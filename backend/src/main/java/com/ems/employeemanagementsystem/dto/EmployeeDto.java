@@ -2,6 +2,7 @@ package com.ems.employeemanagementsystem.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class EmployeeDto {
 
@@ -17,7 +18,20 @@ public class EmployeeDto {
     @Email(message = "Email format is invalid")
     private String email;
 
-    // GETTERS AND SETTERS
+    @NotBlank(message = "Department is required")
+    private String department;
+
+    @NotBlank(message = "Designation is required")
+    private String designation;
+
+    @NotNull(message = "Salary is required")
+    private Double salary;
+
+    @NotBlank(message = "Status is required")
+    private String status;
+
+    public EmployeeDto() {
+    }
 
     public Long getId() {
         return id;
@@ -49,5 +63,37 @@ public class EmployeeDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

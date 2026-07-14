@@ -5,32 +5,35 @@ import com.ems.employeemanagementsystem.entity.Employee;
 
 public class EmployeeMapper {
 
-    // CONVERT ENTITY TO DTO
     public static EmployeeDto mapToEmployeeDto(Employee employee) {
 
-        EmployeeDto employeeDto = new EmployeeDto();
+        EmployeeDto dto = new EmployeeDto();
 
-        employeeDto.setId(employee.getId());
-        employeeDto.setFirstName(employee.getFirstName());
-        employeeDto.setLastName(employee.getLastName());
-        employeeDto.setEmail(employee.getEmail());
+        dto.setId(employee.getId());
+        dto.setFirstName(employee.getFirstName());
+        dto.setLastName(employee.getLastName());
+        dto.setEmail(employee.getEmail());
+        dto.setDepartment(employee.getDepartment());
+        dto.setDesignation(employee.getDesignation());
+        dto.setSalary(employee.getSalary());
+        dto.setStatus(employee.getStatus());
 
-        return employeeDto;
-
+        return dto;
     }
 
-    // CONVERT DTO TO ENTITY
-    public static Employee mapToEmployee(EmployeeDto employeeDto) {
+    public static Employee mapToEmployee(EmployeeDto dto) {
 
         Employee employee = new Employee();
 
-        employee.setId(employeeDto.getId());
-        employee.setFirstName(employeeDto.getFirstName());
-        employee.setLastName(employeeDto.getLastName());
-        employee.setEmail(employeeDto.getEmail());
+        employee.setId(dto.getId());
+        employee.setFirstName(dto.getFirstName());
+        employee.setLastName(dto.getLastName());
+        employee.setEmail(dto.getEmail());
+        employee.setDepartment(dto.getDepartment());
+        employee.setDesignation(dto.getDesignation());
+        employee.setSalary(dto.getSalary());
+        employee.setStatus(dto.getStatus());
 
         return employee;
-
     }
-
 }

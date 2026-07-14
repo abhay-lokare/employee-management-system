@@ -26,22 +26,9 @@ public class EmployeeService {
     // CREATE EMPLOYEE
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
 
-        log.info(
-                "Creating employee: {} {}",
-                employeeDto.getFirstName(),
-                employeeDto.getLastName()
-        );
+        Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
 
-        Employee employee =
-                EmployeeMapper.mapToEmployee(employeeDto);
-
-        Employee savedEmployee =
-                employeeRepository.save(employee);
-
-        log.info(
-                "Employee created successfully with id: {}",
-                savedEmployee.getId()
-        );
+        Employee savedEmployee = employeeRepository.save(employee);
 
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
@@ -105,44 +92,25 @@ public class EmployeeService {
     }
 
     // UPDATE EMPLOYEE
-    public EmployeeDto updateEmployee(
-            Long id,
-            EmployeeDto updatedEmployee) {
+    public EmployeeDto updateEmployee(Long id, EmployeeDto updatedEmployee) {
 
-        log.info(
-                "Updating employee with id: {}",
-                id
-        );
-
-        Employee employee =
-                employeeRepository.findById(id)
-                        .orElseThrow(() -> {
-
-                            log.error(
-                                    "Employee not found with id: {}",
-                                    id
-                            );
-
-                            return new ResourceNotFoundException(
-                                    "Employee not found with id: " + id
-                            );
-                        });
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Employee not found with id : " + id));
 
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setLastName(updatedEmployee.getLastName());
         employee.setEmail(updatedEmployee.getEmail());
 
-        Employee updatedEmployeeObj =
-                employeeRepository.save(employee);
+        employee.setDepartment(updatedEmployee.getDepartment());
+        employee.setDesignation(updatedEmployee.getDesignation());
+        employee.setSalary(updatedEmployee.getSalary());
+        employee.setStatus(updatedEmployee.getStatus());
 
-        log.info(
-                "Employee updated successfully with id: {}",
-                id
-        );
+        Employee savedEmployee = employeeRepository.save(employee);
 
-        return EmployeeMapper.mapToEmployeeDto(
-                updatedEmployeeObj
-        );
+        return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
 
     // DELETE EMPLOYEE

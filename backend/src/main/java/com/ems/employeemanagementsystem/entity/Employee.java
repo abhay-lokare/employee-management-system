@@ -1,25 +1,60 @@
 package com.ems.employeemanagementsystem.entity;
 
 import java.time.LocalDateTime;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    public Long getId() {
+	@Column(name = "first_name", nullable = false)
+	private String firstName;
+
+	@Column(name = "last_name", nullable = false)
+	private String lastName;
+
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	@Column(nullable = false)
+	private String department;
+
+	@Column(nullable = false)
+	private String designation;
+
+	@Column(nullable = false)
+	private Double salary;
+
+	@Column(nullable = false)
+	private String status;
+
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
+
+	@PrePersist
+	public void prePersist() {
+		createdAt = LocalDateTime.now();
+
+		if (status == null || status.isBlank()) {
+			status = "Active";
+		}
+	}
+
+	public Employee() {
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -51,41 +86,43 @@ public class Employee {
 		this.email = email;
 	}
 
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
+	public String getDepartment() {
+		return department;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public Double getSalary() {
+		return salary;
+	}
+
+	public void setSalary(Double salary) {
+		this.salary = salary;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	@Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
-
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
-    }
-
-    // Generate Getters and Setters here
 }

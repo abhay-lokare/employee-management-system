@@ -1,93 +1,138 @@
 import {
-  FaHome,
-  FaUsers,
-  FaUserPlus,
-  FaBuilding,
-  FaChartBar,
-  FaCog,
-  FaTimes
+    FaHome,
+    FaUsers,
+    FaUserPlus,
+    FaBuilding,
+    FaClipboardCheck,
+    FaCalendarAlt,
+    FaChartBar,
+    FaCog,
+    FaTimes
 } from "react-icons/fa";
 
+import { NavLink } from "react-router-dom";
+import { FaMoneyCheckAlt } from "react-icons/fa";
 import "./Sidebar.css";
 
 function Sidebar({ sidebarOpen, closeSidebar }) {
 
-  return (
+    return (
 
-    <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
 
-      {/* Close button (Mobile Only) */}
+            {/* Close Button */}
 
-      <button className="close-btn" onClick={closeSidebar}>
-        <FaTimes />
-      </button>
+            <button
+                className="close-btn"
+                onClick={closeSidebar}
+            >
+                <FaTimes />
+            </button>
 
-      {/* Logo */}
+            {/* Logo */}
 
-      <div className="logo-section">
+            <div className="logo-section">
 
-        <div className="logo">
-          ⚡
-        </div>
+                <div className="logo">
+                    ⚡
+                </div>
 
-        <div className="logo-text">
+                <div className="logo-text">
 
-          <h2>EMS Pro</h2>
+                    <h2>EMS Pro</h2>
 
-          <p>Management</p>
+                    <p>Management</p>
 
-        </div>
+                </div>
 
-      </div>
+            </div>
 
-      {/* Menu */}
+            {/* Navigation */}
 
-      <nav className="menu">
+            <nav className="menu">
 
-        <a href="#" className="active" onClick={closeSidebar}>
-          <FaHome />
-          <span>Dashboard</span>
-        </a>
+                <NavLink
+                    to="/"
+                    onClick={closeSidebar}
+                >
+                    <FaHome />
+                    <span>Dashboard</span>
+                </NavLink>
 
-        <a href="#" onClick={closeSidebar}>
-          <FaUsers />
-          <span>Employees</span>
-        </a>
+                <NavLink
+                    to="/employees"
+                    onClick={closeSidebar}
+                >
+                    <FaUsers />
+                    <span>Employees</span>
+                </NavLink>
 
-        <a href="#" onClick={closeSidebar}>
-          <FaUserPlus />
-          <span>Add Employee</span>
-        </a>
+                <NavLink
+                    to="/add-employee"
+                    onClick={closeSidebar}
+                >
+                    <FaUserPlus />
+                    <span>Add Employee</span>
+                </NavLink>
 
-        <a href="#" onClick={closeSidebar}>
-          <FaBuilding />
-          <span>Departments</span>
-        </a>
+                <NavLink
+                    to="/departments"
+                    onClick={closeSidebar}
+                >
+                    <FaBuilding />
+                    <span>Departments</span>
+                </NavLink>
 
-        <a href="#" onClick={closeSidebar}>
-          <FaChartBar />
-          <span>Reports</span>
-        </a>
+                <NavLink
+                    to="/attendance"
+                    onClick={closeSidebar}
+                >
+                    <FaClipboardCheck />
+                    <span>Attendance</span>
+                </NavLink>
+                <NavLink
+                    to="/payroll"
+                    onClick={closeSidebar}
+                >
+                    <FaMoneyCheckAlt />
+                    <span>Payroll</span>
+                </NavLink>
 
-      </nav>
+                <NavLink
+                    to="/leave"
+                    onClick={closeSidebar}
+                >
+                    <FaCalendarAlt />
+                    <span>Leave</span>
+                </NavLink>
 
-      {/* Bottom */}
+                <NavLink
+                    to="/reports"
+                    onClick={closeSidebar}
+                >
+                    <FaChartBar />
+                    <span>Reports</span>
+                </NavLink>
 
-      <div className="settings">
+            </nav>
 
-        <a href="#" onClick={closeSidebar}>
+            {/* Bottom */}
 
-          <FaCog />
+            <div className="settings">
 
-          <span>Settings</span>
+                <NavLink
+                    to="/settings"
+                    onClick={closeSidebar}
+                >
+                    <FaCog />
+                    <span>Settings</span>
+                </NavLink>
 
-        </a>
+            </div>
 
-      </div>
+        </aside>
 
-    </aside>
-
-  );
+    );
 
 }
 

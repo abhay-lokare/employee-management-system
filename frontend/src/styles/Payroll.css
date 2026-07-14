@@ -1,0 +1,340 @@
+/* ===========================
+   PAYROLL PAGE
+=========================== */
+
+.payroll-page{
+
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.payroll-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+
+}
+
+.payroll-header h2{
+
+    color:#fff;
+    font-size:32px;
+    font-weight:700;
+    margin:0;
+
+}
+
+.payroll-header p{
+
+    color:#94a3b8;
+    margin-top:8px;
+
+}
+
+.payroll-btn{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:14px 22px;
+
+    border:none;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.payroll-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 30px rgba(37,99,235,.35);
+
+}
+
+/* ===========================
+   STATS
+=========================== */
+
+.payroll-stats{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+
+}
+
+.payroll-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    padding:24px;
+
+    backdrop-filter:blur(15px);
+
+    transition:.3s;
+
+}
+
+.payroll-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:#2563eb;
+
+}
+
+.payroll-card h3{
+
+    color:#fff;
+
+    font-size:34px;
+
+    margin-bottom:8px;
+
+}
+
+.payroll-card span{
+
+    color:#94a3b8;
+
+}
+
+/* ===========================
+   SEARCH
+=========================== */
+
+.payroll-search{
+
+    display:flex;
+
+}
+
+.payroll-search-box{
+
+    width:420px;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:14px 18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:16px;
+
+}
+
+.payroll-search-box svg{
+
+    color:#94a3b8;
+
+}
+
+.payroll-search-box input{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    outline:none;
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+.payroll-search-box input::placeholder{
+
+    color:#94a3b8;
+
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.payroll-table-card{
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    overflow:auto;
+
+}
+
+.payroll-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.payroll-table thead{
+
+    background:#172033;
+
+}
+
+.payroll-table th{
+
+    padding:20px;
+
+    text-align:left;
+
+    color:#cbd5e1;
+
+    font-weight:600;
+
+}
+
+.payroll-table td{
+
+    padding:18px 20px;
+
+    color:white;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+.payroll-table tbody tr{
+
+    transition:.3s;
+
+}
+
+.payroll-table tbody tr:hover{
+
+    background:rgba(255,255,255,.03);
+
+}
+
+/* ===========================
+   PAGINATION
+=========================== */
+
+.payroll-pagination{
+
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+
+}
+
+.payroll-pagination button{
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.payroll-pagination button:hover{
+
+    background:#2563eb;
+
+    transform:translateY(-2px);
+
+}
+
+.payroll-pagination .active{
+
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+    .payroll-header{
+
+        flex-direction:column;
+        align-items:flex-start;
+
+    }
+
+    .payroll-btn{
+
+        width:100%;
+        justify-content:center;
+
+    }
+
+    .payroll-stats{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .payroll-search-box{
+
+        width:100%;
+
+    }
+
+    .payroll-table{
+
+        min-width:900px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .payroll-header h2{
+
+        font-size:28px;
+
+    }
+
+}

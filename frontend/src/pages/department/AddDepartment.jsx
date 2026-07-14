@@ -1,22 +1,52 @@
-import "../../components/department/Departments.css";
-
-import DepartmentHeader from "../../components/department/DepartmentHeader";
+import "../../styles/Departments.css";
 
 function AddDepartment() {
 
     return (
 
-        <div className="departments-page">
+        <div className="department-page">
 
-            <DepartmentHeader
+            <div className="page-header">
 
-                title="Add Department"
+                <h1>Add Department</h1>
 
-                subtitle="Create a new department"
+                <p>Create a new department.</p>
 
-                showButton={false}
+            </div>
 
-            />
+            <div className="department-form-card">
+
+                <div className="form-grid">
+
+                    <input
+                        type="text"
+                        placeholder="Department Name"
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Department Head"
+                    />
+
+                    <input
+                        type="number"
+                        placeholder="No. of Employees"
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Location"
+                    />
+
+                </div>
+
+                <button className="primary-btn">
+
+                    Save Department
+
+                </button>
+
+            </div>
 
         </div>
 

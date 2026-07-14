@@ -1,68 +1,52 @@
-import "../../styles/Employees.css";
+import "../../styles/Leave.css";
 
-function EmployeeDetails() {
+function LeaveDetails() {
 
     return (
 
-        <div className="employee-page">
+        <div className="leave-page">
 
             <div className="page-header">
 
-                <h1>Employee Details</h1>
+                <h1>Leave Details</h1>
 
-                <p>Complete employee information.</p>
+                <p>View leave request information.</p>
 
             </div>
 
             <div className="employee-details-card">
 
                 <div className="detail-row">
-
-                    <span>Name</span>
-
+                    <span>Employee</span>
                     <strong>John Smith</strong>
-
                 </div>
 
                 <div className="detail-row">
-
-                    <span>Email</span>
-
-                    <strong>john@company.com</strong>
-
-                </div>
-
-                <div className="detail-row">
-
                     <span>Department</span>
-
                     <strong>Development</strong>
-
                 </div>
 
                 <div className="detail-row">
-
-                    <span>Designation</span>
-
-                    <strong>Frontend Developer</strong>
-
+                    <span>Leave Type</span>
+                    <strong>Casual Leave</strong>
                 </div>
 
                 <div className="detail-row">
-
-                    <span>Salary</span>
-
-                    <strong>₹65,000</strong>
-
+                    <span>From</span>
+                    <strong>15 Jul 2026</strong>
                 </div>
 
                 <div className="detail-row">
+                    <span>To</span>
+                    <strong>18 Jul 2026</strong>
+                </div>
 
+                <div className="detail-row">
                     <span>Status</span>
 
-                    <strong className="status active">
+                    <strong className="status leave">
 
-                        Active
+                        Approved
 
                     </strong>
 
@@ -76,4 +60,4 @@ function EmployeeDetails() {
 
 }
 
-export default EmployeeDetails;
+export default LeaveDetails;

@@ -18,7 +18,9 @@ body{
     min-height:100vh;
     overflow-x:hidden;
 }
-
+#root{
+    min-height:100vh;
+}
 a{
     text-decoration:none;
     color:inherit;
@@ -27,6 +29,7 @@ a{
 button{
     border:none;
     outline:none;
+    background:none;
     cursor:pointer;
     transition:var(--transition);
     font-family:inherit;
@@ -37,6 +40,10 @@ select,
 textarea{
     font-family:inherit;
     outline:none;
+    color:white;
+}
+input::placeholder{
+    color:#94a3b8;
 }
 
 img{
@@ -81,46 +88,56 @@ img{
     max-width:700px;
 
 }
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+ul{
+    list-style:none;
+}
 
+svg{
+    flex-shrink:0;
+}
 @media(max-width:992px){
 
-.dashboard-header h1{
+    .dashboard-header h1{
 
-    font-size:36px;
+        font-size:36px;
 
-}
+    }
 
 }
 
 @media(max-width:768px){
 
-.dashboard-header{
+    .dashboard-header{
 
-    margin-top:70px;
+        margin-top:70px;
 
-}
+    }
 
-.dashboard-header h1{
+    .dashboard-header h1{
 
-    font-size:30px;
+        font-size:30px;
 
-}
+    }
 
-.dashboard-header p{
+    .dashboard-header p{
 
-    font-size:15px;
+        font-size:15px;
 
-}
+    }
 
 }
 
 @media(max-width:480px){
 
-.dashboard-header h1{
+    .dashboard-header h1{
 
-    font-size:26px;
+        font-size:26px;
 
-}
+    }
 
 }
 .hero-card{
@@ -324,4 +341,25 @@ img{
 
     font-size:26px;
 
+}
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#374151;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#4b5563;
+}
+
+::selection{
+    background:#2563eb;
+    color:white;
 }

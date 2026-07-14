@@ -1,25 +1,25 @@
 :root{
 
---primary:#2563eb;
---secondary:#4f46e5;
+    --primary:#2563eb;
+    --secondary:#4f46e5;
 
---background:#0f172a;
---surface:#111827;
---card:rgba(255,255,255,.05);
+    --background:#0f172a;
+    --surface:#111827;
+    --card:rgba(255,255,255,.05);
 
---text:#ffffff;
---text-light:#94a3b8;
+    --text:#ffffff;
+    --text-light:#94a3b8;
 
---border:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.08);
 
---success:#22c55e;
---warning:#f59e0b;
---danger:#ef4444;
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
 
---shadow:0 12px 35px rgba(0,0,0,.30);
+    --shadow:0 12px 35px rgba(0,0,0,.30);
 
---radius:22px;
+    --radius:22px;
 
---transition:.35s ease;
+    --transition:.35s ease;
 
 }
