@@ -363,3 +363,34 @@
     padding:35px;
 
 }
+
+.department-form-card .form-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:20px;
+}
+
+.department-form-card input,
+.department-form-card textarea{
+    width:100%;
+    padding:15px 18px;
+    color:#fff;
+    background:#111827;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+}
+
+.department-form-card textarea{
+    grid-column:1 / -1;
+    resize:vertical;
+}
+
+@media(max-width:768px){
+    .department-form-card .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .department-form-card textarea{
+        grid-column:auto;
+    }
+}

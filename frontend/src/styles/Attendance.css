@@ -144,6 +144,19 @@
 
 }
 
+.attendance-search-box input::placeholder{
+    color:#94a3b8;
+}
+
+.attendance-page .employee-form-card{
+    max-width:none;
+}
+
+.attendance-page input:disabled{
+    cursor:not-allowed;
+    opacity:.55;
+}
+
 /* =========================
    TABLE
 ========================= */
@@ -198,6 +211,22 @@
     background:rgba(255,255,255,.03);
 
 }
+
+.attendance-table td{
+    vertical-align:middle;
+}
+
+.attendance-table .edit-btn,
+.attendance-table .delete-btn{
+    width:36px;
+    height:36px;
+    margin-right:8px;
+    border-radius:9px;
+    color:#fff;
+}
+
+.attendance-table .edit-btn{ background:#f59e0b; }
+.attendance-table .delete-btn{ background:#ef4444; }
 
 /* =========================
    STATUS

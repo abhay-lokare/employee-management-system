@@ -5,8 +5,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Base64;
 
 import com.ems.employeemanagementsystem.dto.EmployeeDto;
 import com.ems.employeemanagementsystem.entity.Employee;
@@ -23,6 +29,9 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private AuthService authService;
+
     // CREATE EMPLOYEE
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
 
@@ -30,10 +39,12 @@ public class EmployeeService {
 
         Employee savedEmployee = employeeRepository.save(employee);
 
+        authService.createEmployeeAccount(savedEmployee);
+
         return EmployeeMapper.mapToEmployeeDto(savedEmployee);
     }
 
-    // GET ALL EMPLOYEES WITH PAGINATION AND SORTING
+    // GET ALL EMPLOYEES
     public Page<EmployeeDto> getAllEmployees(
             int page,
             int size,
@@ -48,20 +59,13 @@ public class EmployeeService {
                 sortDir
         );
 
-        Sort sort =
-                sortDir.equalsIgnoreCase("asc")
-                        ? Sort.by(sortBy).ascending()
-                        : Sort.by(sortBy).descending();
+        Sort sort = sortDir.equalsIgnoreCase("asc")
+                ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
 
-        Pageable pageable =
-                PageRequest.of(
-                        page,
-                        size,
-                        sort
-                );
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Employee> employees =
-                employeeRepository.findAll(pageable);
+        Page<Employee> employees = employeeRepository.findAll(pageable);
 
         return employees.map(EmployeeMapper::mapToEmployeeDto);
     }
@@ -69,24 +73,10 @@ public class EmployeeService {
     // GET EMPLOYEE BY ID
     public EmployeeDto getEmployeeById(Long id) {
 
-        log.info(
-                "Fetching employee with id: {}",
-                id
-        );
-
-        Employee employee =
-                employeeRepository.findById(id)
-                        .orElseThrow(() -> {
-
-                            log.error(
-                                    "Employee not found with id: {}",
-                                    id
-                            );
-
-                            return new ResourceNotFoundException(
-                                    "Employee not found with id: " + id
-                            );
-                        });
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Employee not found with id : " + id));
 
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
@@ -102,11 +92,13 @@ public class EmployeeService {
         employee.setFirstName(updatedEmployee.getFirstName());
         employee.setLastName(updatedEmployee.getLastName());
         employee.setEmail(updatedEmployee.getEmail());
-
+        employee.setPhone(updatedEmployee.getPhone());
         employee.setDepartment(updatedEmployee.getDepartment());
         employee.setDesignation(updatedEmployee.getDesignation());
         employee.setSalary(updatedEmployee.getSalary());
         employee.setStatus(updatedEmployee.getStatus());
+        employee.setAddress(updatedEmployee.getAddress());
+        employee.setJoiningDate(updatedEmployee.getJoiningDate());
 
         Employee savedEmployee = employeeRepository.save(employee);
 
@@ -116,107 +108,69 @@ public class EmployeeService {
     // DELETE EMPLOYEE
     public String deleteEmployee(Long id) {
 
-        log.info("Deleting employee with id: {}", id);
-
-        Employee employee =
-                employeeRepository.findById(id)
-                        .orElseThrow(() -> {
-
-                            log.error("Employee not found with id: {}", id);
-
-                            return new ResourceNotFoundException(
-                                    "Employee not found with id: " + id
-                            );
-                        });
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Employee not found with id : " + id));
 
         employeeRepository.delete(employee);
-
-        log.info("Employee deleted successfully with id: {}", id);
 
         return "Employee deleted successfully";
     }
 
-    // SEARCH EMPLOYEE BY KEYWORD
-    public List<EmployeeDto> searchEmployees(
-            String keyword) {
+    public EmployeeDto updateEmployeePhoto(Long id, MultipartFile photoFile) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id : " + id));
 
-        log.info(
-                "Searching employees with keyword: {}",
-                keyword
-        );
+        try {
+            String photo = "data:" + photoFile.getContentType() + ";base64,"
+                    + Base64.getEncoder().encodeToString(photoFile.getBytes());
+            employee.setPhoto(photo);
+            return EmployeeMapper.mapToEmployeeDto(employeeRepository.save(employee));
+        } catch (Exception ex) {
+            throw new IllegalArgumentException("Unable to save profile photo");
+        }
+    }
+
+    // SEARCH EMPLOYEE
+    public List<EmployeeDto> searchEmployees(String keyword) {
 
         List<Employee> employees =
-                employeeRepository
-                        .findByFirstNameContainingIgnoreCase(
-                                keyword
-                        );
+                employeeRepository.findByFirstNameContainingIgnoreCase(keyword);
 
         return employees.stream()
                 .map(EmployeeMapper::mapToEmployeeDto)
                 .toList();
     }
 
-    // FIND EMPLOYEES BY FIRST NAME
-    public List<EmployeeDto> getEmployeesByFirstName(
-            String firstName) {
-
-        log.info(
-                "Searching employees by first name: {}",
-                firstName
-        );
+    // FIND BY FIRST NAME
+    public List<EmployeeDto> getEmployeesByFirstName(String firstName) {
 
         List<Employee> employees =
-                employeeRepository.findByFirstName(
-                        firstName
-                );
+                employeeRepository.findByFirstName(firstName);
 
         return employees.stream()
                 .map(EmployeeMapper::mapToEmployeeDto)
                 .toList();
     }
 
-    // FIND EMPLOYEE BY EMAIL
-    public EmployeeDto getEmployeeByEmail(
-            String email) {
-
-        log.info(
-                "Searching employee by email: {}",
-                email
-        );
+    // FIND BY EMAIL
+    public EmployeeDto getEmployeeByEmail(String email) {
 
         Employee employee =
                 employeeRepository.findByEmail(email)
-                        .orElseThrow(() -> {
-
-                            log.error(
-                                    "Employee not found with email: {}",
-                                    email
-                            );
-
-                            return new ResourceNotFoundException(
-                                    "Employee not found with email: "
-                                            + email
-                            );
-                        });
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException(
+                                        "Employee not found with email : " + email));
 
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
 
-    // JPQL QUERY
-    public List<EmployeeDto>
-    getEmployeesByFirstNameJPQL(
-            String firstName) {
-
-        log.info(
-                "Executing JPQL query for first name: {}",
-                firstName
-        );
+    // JPQL
+    public List<EmployeeDto> getEmployeesByFirstNameJPQL(String firstName) {
 
         List<Employee> employees =
-                employeeRepository
-                        .findEmployeesByFirstNameJPQL(
-                                firstName
-                        );
+                employeeRepository.findEmployeesByFirstNameJPQL(firstName);
 
         return employees.stream()
                 .map(EmployeeMapper::mapToEmployeeDto)

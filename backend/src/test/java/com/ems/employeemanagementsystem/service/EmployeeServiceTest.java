@@ -26,6 +26,9 @@ class EmployeeServiceTest {
     @Mock
     private EmployeeRepository employeeRepository;
 
+    @Mock
+    private AuthService authService;
+
     @InjectMocks
     private EmployeeService employeeService;
 
@@ -58,9 +61,14 @@ class EmployeeServiceTest {
     void testDeleteEmployee() {
 
         Long id = 1L;
+        Employee employee = new Employee();
+        employee.setId(id);
+
+        when(employeeRepository.findById(id))
+                .thenReturn(Optional.of(employee));
 
         doNothing().when(employeeRepository)
-                .deleteById(id);
+                .delete(employee);
 
         String result =
                 employeeService.deleteEmployee(id);
@@ -71,7 +79,7 @@ class EmployeeServiceTest {
         );
 
         verify(employeeRepository)
-                .deleteById(id);
+                .delete(employee);
     }
     @Test
     void testSaveEmployee() {
@@ -157,7 +165,7 @@ class EmployeeServiceTest {
                 );
 
         assertEquals(
-                "Employee not found with id: 999",
+                "Employee not found with id : 999",
                 exception.getMessage()
         );
 

@@ -65,3 +65,38 @@
 }
 
 }
+.sidebar-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:999;
+
+}
+
+.sidebar-overlay.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+@media(min-width:769px){
+
+    .sidebar-overlay{
+
+        display:none;
+
+    }
+
+}

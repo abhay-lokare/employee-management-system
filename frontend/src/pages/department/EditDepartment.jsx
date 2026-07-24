@@ -1,6 +1,89 @@
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import "../../styles/Departments.css";
 
+import {
+    getDepartment,
+    updateDepartment
+} from "../../services/departmentService";
+
 function EditDepartment() {
+
+    const navigate = useNavigate();
+
+    const [searchParams] = useSearchParams();
+
+    const id = searchParams.get("id");
+
+    const [department, setDepartment] = useState({
+
+        departmentName: "",
+        departmentCode: "",
+        description: ""
+
+    });
+
+    const loadDepartment = useCallback(async () => {
+
+        try {
+
+            const response = await getDepartment(id);
+
+            setDepartment(response.data);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    }, [id]);
+
+    useEffect(() => {
+
+        loadDepartment();
+
+    }, [loadDepartment]);
+
+    function handleChange(e) {
+
+        setDepartment({
+
+            ...department,
+
+            [e.target.name]: e.target.value
+
+        });
+
+    }
+
+    async function handleSubmit(e) {
+
+        e.preventDefault();
+
+        try {
+
+            await updateDepartment(id, department);
+
+            toast.success("Department updated successfully.");
+
+            navigate("/departments");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            toast.error("Unable to update department.");
+
+        }
+
+    }
 
     return (
 
@@ -14,27 +97,51 @@ function EditDepartment() {
 
             </div>
 
-            <div className="department-form-card">
+            <form
+                className="department-form-card"
+                onSubmit={handleSubmit}
+            >
 
                 <div className="form-grid">
 
-                    <input defaultValue="Development" />
+                    <input
+                        type="text"
+                        name="departmentName"
+                        placeholder="Department Name"
+                        value={department.departmentName}
+                        onChange={handleChange}
+                        required
+                    />
 
-                    <input defaultValue="John Smith" />
+                    <input
+                        type="text"
+                        name="departmentCode"
+                        placeholder="Department Code"
+                        value={department.departmentCode}
+                        onChange={handleChange}
+                        required
+                    />
 
-                    <input defaultValue="85" />
-
-                    <input defaultValue="Floor 3" />
+                    <textarea
+                        name="description"
+                        placeholder="Department Description"
+                        rows="5"
+                        value={department.description}
+                        onChange={handleChange}
+                    />
 
                 </div>
 
-                <button className="primary-btn">
+                <button
+                    type="submit"
+                    className="primary-btn"
+                >
 
                     Update Department
 
                 </button>
 
-            </div>
+            </form>
 
         </div>
 

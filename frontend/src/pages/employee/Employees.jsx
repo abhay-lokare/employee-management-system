@@ -1,18 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import {
     FaUserPlus,
     FaUsers,
     FaUserCheck,
-    FaUserClock,
     FaSearch,
-    FaFilter,
     FaEye,
     FaEdit,
-    FaTrash,
-    FaAngleLeft,
-    FaAngleRight
+    FaTrash
 } from "react-icons/fa";
 
 import "../../styles/Employees.css";
@@ -27,43 +24,26 @@ function Employees() {
     const navigate = useNavigate();
 
     const [employees, setEmployees] = useState([]);
+
     const [search, setSearch] = useState("");
-
-    const loadEmployees = useCallback(async () => {
-
-        try {
-
-            const response = await getEmployees();
-
-            setEmployees(response.data.content);
-
-        } catch (error) {
-
-            console.log(error);
-
-        }
-
-    }, []);
 
     useEffect(() => {
 
         loadEmployees();
 
-    }, [loadEmployees]);
+    }, []);
 
-
-
-    async function handleDelete(id) {
-
-        if (!window.confirm("Delete this employee?")) return;
+    async function loadEmployees() {
 
         try {
 
-            await deleteEmployee(id);
+            const response = await getEmployees(0, 100, "id", "desc");
 
-            loadEmployees();
+            setEmployees(response.data.content);
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.log(error);
 
@@ -71,14 +51,42 @@ function Employees() {
 
     }
 
+    async function handleDelete(id) {
+
+        try {
+
+            await deleteEmployee(id);
+
+            loadEmployees();
+            toast.success("Employee deleted successfully.");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+            toast.error("Unable to delete employee.");
+
+        }
+
+    }
+
     const filteredEmployees = employees.filter((employee) => {
 
-        const fullName =
-            `${employee.firstName} ${employee.lastName}`.toLowerCase();
+        const keyword = search.toLowerCase();
 
         return (
-            fullName.includes(search.toLowerCase()) ||
-            employee.email.toLowerCase().includes(search.toLowerCase())
+
+            (employee.firstName || "").toLowerCase().includes(keyword) ||
+
+            (employee.lastName || "").toLowerCase().includes(keyword) ||
+
+            (employee.email || "").toLowerCase().includes(keyword) ||
+
+            (employee.department || "").toLowerCase().includes(keyword) ||
+
+            (employee.designation || "").toLowerCase().includes(keyword)
+
         );
 
     });
@@ -93,7 +101,7 @@ function Employees() {
 
                     <h2>Employees</h2>
 
-                    <p>Manage all employees from one place.</p>
+                    <p>Manage all employees</p>
 
                 </div>
 
@@ -116,16 +124,18 @@ function Employees() {
 
                     <div
                         className="employee-stat-icon"
-                        style={{ background: "#4F46E5" }}
+                        style={{ background:"#2563eb" }}
                     >
-
                         <FaUsers />
-
                     </div>
 
-                    <h3>{employees.length}</h3>
+                    <div className="employee-stat-content">
 
-                    <p>Total Employees</p>
+                        <h3>{employees.length}</h3>
+
+                        <p>Total Employees</p>
+
+                    </div>
 
                 </div>
 
@@ -133,48 +143,26 @@ function Employees() {
 
                     <div
                         className="employee-stat-icon"
-                        style={{ background: "#22C55E" }}
+                        style={{ background: "#16a34a" }}
                     >
-
                         <FaUserCheck />
+                    </div>
+
+                    <div className="employee-stat-content">
+
+                        <h3>
+                            {
+                                employees.filter(
+                                    e => e.status === "Active"
+                                ).length
+                            }
+                        </h3>
+
+                        <p>Active Employees</p>
 
                     </div>
 
-                    <h3>
-                        {
-                            employees.filter(
-                                e => e.status === "Active"
-                            ).length
-                        }
-                    </h3>
-
-                    <p>Active Employees</p>
-
                 </div>
-
-                <div className="employee-stat-card">
-
-                    <div
-                        className="employee-stat-icon"
-                        style={{ background: "#F59E0B" }}
-                    >
-
-                        <FaUserClock />
-
-                    </div>
-
-                    <h3>
-                        {
-                            employees.filter(
-                                e => e.status === "Leave"
-                            ).length
-                        }
-                    </h3>
-
-                    <p>On Leave</p>
-
-                </div>
-
             </div>
 
             <div className="employee-search-container">
@@ -184,20 +172,22 @@ function Employees() {
                     <FaSearch />
 
                     <input
-                        placeholder="Search employee..."
+
+                        type="text"
+
+                        placeholder="Search Employee..."
+
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+
+                        onChange={(e) =>
+
+                            setSearch(e.target.value)
+
+                        }
+
                     />
 
                 </div>
-
-                <button className="filter-btn">
-
-                    <FaFilter />
-
-                    Filter
-
-                </button>
 
             </div>
 
@@ -216,6 +206,8 @@ function Employees() {
                         <th>Department</th>
 
                         <th>Designation</th>
+
+                        <th>Salary</th>
 
                         <th>Status</th>
 
@@ -251,31 +243,43 @@ function Employees() {
 
                                             </h6>
 
-                                            <span>
-
-                                                {employee.email}
-
-                                            </span>
-
                                         </div>
 
                                     </div>
 
                                 </td>
 
-                                <td>{employee.email}</td>
+                                <td>
 
-                                <td>{employee.department}</td>
+                                    {employee.email}
 
-                                <td>{employee.designation}</td>
+                                </td>
 
                                 <td>
 
-                                    <span className={`status ${employee.status.toLowerCase()}`}>
+                                    {employee.department}
 
-                                        {employee.status}
+                                </td>
 
-                                    </span>
+                                <td>
+
+                                    {employee.designation}
+
+                                </td>
+
+                                <td>
+
+                                    ₹ {employee.salary}
+
+                                </td>
+
+                                <td>
+
+                                        <span className={`status ${employee.status.toLowerCase()}`}>
+
+                                            {employee.status}
+
+                                        </span>
 
                                 </td>
 
@@ -284,10 +288,15 @@ function Employees() {
                                     <div className="table-actions">
 
                                         <button
+
                                             className="view-btn"
+
                                             onClick={() =>
+
                                                 navigate(`/employee-details?id=${employee.id}`)
+
                                             }
+
                                         >
 
                                             <FaEye />
@@ -295,10 +304,15 @@ function Employees() {
                                         </button>
 
                                         <button
+
                                             className="edit-btn"
+
                                             onClick={() =>
+
                                                 navigate(`/edit-employee?id=${employee.id}`)
+
                                             }
+
                                         >
 
                                             <FaEdit />
@@ -306,8 +320,15 @@ function Employees() {
                                         </button>
 
                                         <button
+
                                             className="delete-btn"
-                                            onClick={() => handleDelete(employee.id)}
+
+                                            onClick={() =>
+
+                                                handleDelete(employee.id)
+
+                                            }
+
                                         >
 
                                             <FaTrash />
@@ -327,28 +348,6 @@ function Employees() {
                     </tbody>
 
                 </table>
-
-            </div>
-
-            <div className="employee-pagination">
-
-                <button className="page-btn">
-
-                    <FaAngleLeft />
-
-                </button>
-
-                <button className="page-number active">
-
-                    1
-
-                </button>
-
-                <button className="page-btn">
-
-                    <FaAngleRight />
-
-                </button>
 
             </div>
 

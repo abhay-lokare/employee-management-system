@@ -1,135 +1,59 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./pages/dashboard/Home";
 import Employees from "./pages/employee/Employees";
-import Departments from "./pages/department/Departments.jsx";
-import Attendance from "./pages/attendance/Attendance";
-import Leave from "./pages/leave/Leave";
 import AddEmployee from "./pages/employee/AddEmployee";
-import Reports from "./pages/report/Reports";
-import Settings from "./pages/settings/Settings";
-import Payroll from "./pages/payroll/Payroll";
 import EditEmployee from "./pages/employee/EditEmployee";
 import EmployeeDetails from "./pages/employee/EmployeeDetails";
+import Departments from "./pages/department/Departments";
 import AddDepartment from "./pages/department/AddDepartment";
 import EditDepartment from "./pages/department/EditDepartment";
-import ApplyLeave from "./pages/leave/ApplyLeave";
-import LeaveDetails from "./pages/leave/LeaveDetails";
+import Attendance from "./pages/attendance/Attendance";
+import Leave from "./pages/leave/Leave";
+import Payroll from "./pages/payroll/Payroll";
+import Reports from "./pages/report/Reports";
+import Settings from "./pages/settings/Settings";
 import NotFound from "./pages/error/NotFound";
+import Login from "./pages/auth/Login";
+import EmployeePortal from "./pages/employee/EmployeePortal";
+import { getCurrentUser } from "./services/authService";
+
+function AdminRoute({ children }) {
+        const user = getCurrentUser();
+        return user && user.role === "ADMIN" ? children : <Navigate to="/login" replace />;
+}
+
+function EmployeeRoute({ children }) {
+        const user = getCurrentUser();
+        return user && user.role === "EMPLOYEE" ? children : <Navigate to="/login" replace />;
+}
+
+function AdminPage({ children }) {
+        return <AdminRoute><DashboardLayout>{children}</DashboardLayout></AdminRoute>;
+}
+
 function App() {
-
-    return (
-
-        <Routes>
-
-            {/* Default Route */}
-
-            <Route
-                path="/"
-                element={
-                    <DashboardLayout>
-                        <Home />
-                    </DashboardLayout>
-                }
-            />
-
-            {/* Employee */}
-
-            <Route
-                path="/employees"
-                element={
-                    <DashboardLayout>
-                        <Employees />
-                    </DashboardLayout>
-                }
-            />
-
-            {/* Department */}
-
-            <Route
-                path="/departments"
-                element={
-                    <DashboardLayout>
-                        <Departments />
-                    </DashboardLayout>
-                }
-            />
-
-            {/* Attendance */}
-
-            <Route
-                path="/attendance"
-                element={
-                    <DashboardLayout>
-                        <Attendance />
-                    </DashboardLayout>
-                }
-            />
-
-            {/* Leave */}
-
-            <Route
-                path="/leave"
-                element={
-                    <DashboardLayout>
-                        <Leave />
-                    </DashboardLayout>
-                }
-            />
-
-            <Route
-                path="/add-employee"
-                element={
-                    <DashboardLayout>
-                        <AddEmployee />
-                    </DashboardLayout>
-                }
-            />
-
-            <Route
-                path="/reports"
-                element={
-                    <DashboardLayout>
-                        <Reports />
-                    </DashboardLayout>
-                }
-            />
-
-            <Route
-                path="/settings"
-                element={
-                    <DashboardLayout>
-                        <Settings />
-                    </DashboardLayout>
-                }
-            />
-            <Route
-                path="/payroll"
-                element={
-                    <DashboardLayout>
-                        <Payroll/>
-                    </DashboardLayout>
-                }
-            />
-            <Route path="/add-employee" element={<AddEmployee />} />
-
-            <Route path="/edit-employee" element={<EditEmployee />} />
-
-            <Route path="/employee-details" element={<EmployeeDetails />} />
-            <Route path="/add-department" element={<AddDepartment />} />
-
-            <Route path="/edit-department" element={<EditDepartment />} />
-
-            <Route path="/apply-leave" element={<ApplyLeave />} />
-            <Route path="/leave-details" element={<LeaveDetails />} />
-
-            <Route path="*" element={<NotFound />} />
-        </Routes>
-
-
-    );
-
+        return (
+            <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<AdminPage><Home /></AdminPage>} />
+                    <Route path="/employees" element={<AdminPage><Employees /></AdminPage>} />
+                    <Route path="/add-employee" element={<AdminPage><AddEmployee /></AdminPage>} />
+                    <Route path="/edit-employee" element={<AdminPage><EditEmployee /></AdminPage>} />
+                    <Route path="/employee-details" element={<AdminPage><EmployeeDetails /></AdminPage>} />
+                    <Route path="/departments" element={<AdminPage><Departments /></AdminPage>} />
+                    <Route path="/add-department" element={<AdminPage><AddDepartment /></AdminPage>} />
+                    <Route path="/edit-department" element={<AdminPage><EditDepartment /></AdminPage>} />
+                    <Route path="/attendance" element={<AdminPage><Attendance /></AdminPage>} />
+                    <Route path="/leave" element={<AdminPage><Leave /></AdminPage>} />
+                    <Route path="/payroll" element={<AdminPage><Payroll /></AdminPage>} />
+                    <Route path="/reports" element={<AdminPage><Reports /></AdminPage>} />
+                    <Route path="/settings" element={<AdminPage><Settings /></AdminPage>} />
+                    <Route path="/employee-portal" element={<EmployeeRoute><EmployeePortal /></EmployeeRoute>} />
+                    <Route path="*" element={<NotFound />} />
+            </Routes>
+        );
 }
 
 export default App;

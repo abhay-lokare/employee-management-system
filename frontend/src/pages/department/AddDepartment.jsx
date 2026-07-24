@@ -1,6 +1,57 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import "../../styles/Departments.css";
 
+import { createDepartment } from "../../services/departmentService";
+
 function AddDepartment() {
+
+    const navigate = useNavigate();
+
+    const [department, setDepartment] = useState({
+
+        departmentName: "",
+        departmentCode: "",
+        description: ""
+
+    });
+
+    function handleChange(e) {
+
+        setDepartment({
+
+            ...department,
+            [e.target.name]: e.target.value
+
+        });
+
+    }
+
+    async function handleSubmit(e) {
+
+        e.preventDefault();
+
+        try {
+
+            await createDepartment(department);
+
+            toast.success("Department created successfully.");
+
+            navigate("/departments");
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            toast.error("Unable to create department.");
+
+        }
+
+    }
 
     return (
 
@@ -14,39 +65,51 @@ function AddDepartment() {
 
             </div>
 
-            <div className="department-form-card">
+            <form
+                className="department-form-card"
+                onSubmit={handleSubmit}
+            >
 
                 <div className="form-grid">
 
                     <input
                         type="text"
+                        name="departmentName"
                         placeholder="Department Name"
+                        value={department.departmentName}
+                        onChange={handleChange}
+                        required
                     />
 
                     <input
                         type="text"
-                        placeholder="Department Head"
+                        name="departmentCode"
+                        placeholder="Department Code"
+                        value={department.departmentCode}
+                        onChange={handleChange}
+                        required
                     />
 
-                    <input
-                        type="number"
-                        placeholder="No. of Employees"
-                    />
-
-                    <input
-                        type="text"
-                        placeholder="Location"
+                    <textarea
+                        name="description"
+                        placeholder="Department Description"
+                        value={department.description}
+                        onChange={handleChange}
+                        rows="5"
                     />
 
                 </div>
 
-                <button className="primary-btn">
+                <button
+                    type="submit"
+                    className="primary-btn"
+                >
 
                     Save Department
 
                 </button>
 
-            </div>
+            </form>
 
         </div>
 

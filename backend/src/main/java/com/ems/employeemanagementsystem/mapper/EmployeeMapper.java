@@ -5,6 +5,7 @@ import com.ems.employeemanagementsystem.entity.Employee;
 
 public class EmployeeMapper {
 
+    // ENTITY -> DTO
     public static EmployeeDto mapToEmployeeDto(Employee employee) {
 
         EmployeeDto dto = new EmployeeDto();
@@ -13,14 +14,19 @@ public class EmployeeMapper {
         dto.setFirstName(employee.getFirstName());
         dto.setLastName(employee.getLastName());
         dto.setEmail(employee.getEmail());
+        dto.setPhone(employee.getPhone());
         dto.setDepartment(employee.getDepartment());
         dto.setDesignation(employee.getDesignation());
         dto.setSalary(employee.getSalary());
         dto.setStatus(employee.getStatus());
+        dto.setAddress(employee.getAddress());
+        dto.setPhoto(employee.getPhoto());
+        dto.setJoiningDate(employee.getJoiningDate());
 
         return dto;
     }
 
+    // DTO -> ENTITY
     public static Employee mapToEmployee(EmployeeDto dto) {
 
         Employee employee = new Employee();
@@ -29,11 +35,16 @@ public class EmployeeMapper {
         employee.setFirstName(dto.getFirstName());
         employee.setLastName(dto.getLastName());
         employee.setEmail(dto.getEmail());
+        employee.setPhone(dto.getPhone());
         employee.setDepartment(dto.getDepartment());
         employee.setDesignation(dto.getDesignation());
         employee.setSalary(dto.getSalary());
         employee.setStatus(dto.getStatus());
+        employee.setAddress(dto.getAddress());
+        employee.setPhoto(dto.getPhoto());
+        employee.setJoiningDate(dto.getJoiningDate());
 
         return employee;
     }
+
 }

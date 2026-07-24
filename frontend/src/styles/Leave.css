@@ -172,6 +172,28 @@
     border-top:1px solid rgba(255,255,255,.05);
 }
 
+.leave-table td select{
+    width:100%;
+    min-width:110px;
+    padding:9px 10px;
+    color:#fff;
+    background:#111827;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:9px;
+}
+
+.leave-table .delete-btn{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    color:#fff;
+    background:#ef4444;
+}
+
+.leave-table .delete-btn:hover{
+    background:#dc2626;
+}
+
 .leave-table tbody tr{
     transition:.3s;
 }
@@ -328,6 +350,10 @@
     padding:16px;
     resize:none;
     margin-bottom:25px;
+}
+
+.leave-form-card .form-actions{
+    margin-top:0;
 }
 
 /* ===========================

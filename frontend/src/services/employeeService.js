@@ -29,6 +29,14 @@ export const deleteEmployee = (id) => {
     return api.delete(`${EMPLOYEE_URL}/${id}`);
 };
 
+export const uploadEmployeePhoto = (id, photoFile) => {
+    const formData = new FormData();
+    formData.append("photo", photoFile);
+    return api.post(`${EMPLOYEE_URL}/${id}/photo`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+};
+
 export const searchEmployees = (keyword) => {
     return api.get(`${EMPLOYEE_URL}/search?keyword=${keyword}`);
 };

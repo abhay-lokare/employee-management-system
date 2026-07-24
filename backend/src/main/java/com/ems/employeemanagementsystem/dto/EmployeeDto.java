@@ -1,5 +1,7 @@
 package com.ems.employeemanagementsystem.dto;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +20,9 @@ public class EmployeeDto {
     @Email(message = "Email format is invalid")
     private String email;
 
+    @NotBlank(message = "Phone should not be empty")
+    private String phone;
+
     @NotBlank(message = "Department is required")
     private String department;
 
@@ -29,6 +34,13 @@ public class EmployeeDto {
 
     @NotBlank(message = "Status is required")
     private String status;
+
+    private String address;
+
+    private String photo;
+
+    @NotNull(message = "Joining Date is required")
+    private LocalDate joiningDate;
 
     public EmployeeDto() {
     }
@@ -65,6 +77,14 @@ public class EmployeeDto {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -96,4 +116,29 @@ public class EmployeeDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public LocalDate getJoiningDate() {
+        return joiningDate;
+    }
+
+    public void setJoiningDate(LocalDate joiningDate) {
+        this.joiningDate = joiningDate;
+    }
+
 }

@@ -196,6 +196,92 @@
     user-select:none;
 
 }
+
+.notification-area{
+    position:relative;
+}
+
+.notification-panel{
+    position:absolute;
+    z-index:50;
+    top:57px;
+    right:0;
+    width:340px;
+    padding:14px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    background:#1f2937;
+    box-shadow:0 18px 35px rgba(0,0,0,.32);
+}
+
+.notification-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:2px 4px 12px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.notification-title h4{
+    margin:0;
+    color:white;
+    font-size:15px;
+}
+
+.notification-title span{
+    color:#93c5fd;
+    font-size:12px;
+}
+
+.notification-item{
+    display:flex;
+    width:100%;
+    gap:10px;
+    padding:12px 4px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    color:#cbd5e1;
+    text-align:left;
+}
+
+.notification-item:hover{
+    color:white;
+    background:rgba(37,99,235,.12);
+}
+
+.notification-item svg{
+    margin-top:3px;
+    color:#60a5fa;
+}
+
+.notification-item span{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    font-size:13px;
+}
+
+.notification-item strong{ color:white; }
+.notification-item small{ color:#94a3b8; }
+
+.no-notifications{
+    margin:0;
+    padding:22px 4px 10px;
+    color:#94a3b8;
+    font-size:13px;
+    text-align:center;
+}
+
+.view-all-notifications{
+    width:100%;
+    margin-top:12px;
+    padding:9px;
+    border-radius:8px;
+    color:#bfdbfe;
+    background:rgba(37,99,235,.2);
+    font-size:13px;
+}
+
+.view-all-notifications:hover{ background:rgba(37,99,235,.35); }
 .profile{
 
     display:flex;

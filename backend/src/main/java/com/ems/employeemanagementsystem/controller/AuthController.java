@@ -1,51 +1,33 @@
 package com.ems.employeemanagementsystem.controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.ems.employeemanagementsystem.dto.LoginRequest;
 import com.ems.employeemanagementsystem.dto.LoginResponse;
-import com.ems.employeemanagementsystem.entity.User;
-import com.ems.employeemanagementsystem.repository.UserRepository;
-import com.ems.employeemanagementsystem.security.JwtUtil;
+import com.ems.employeemanagementsystem.dto.ChangePasswordRequest;
+import com.ems.employeemanagementsystem.service.AuthService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    @Autowired
+    private AuthService authService;
 
-	@Autowired
-	private UserRepository userRepository;
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authService.login(request));
+    }
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
-	@PostMapping("/login")
-	public LoginResponse login(@RequestBody LoginRequest request) {
-
-		Optional<User> userOptional =
-				userRepository.findByUsername(request.getUsername());
-
-		if (userOptional.isEmpty()) {
-			throw new RuntimeException("User not found");
-		}
-
-		User user = userOptional.get();
-
-		if (!passwordEncoder.matches(
-				request.getPassword(),
-				user.getPassword())) {
-
-			throw new RuntimeException("Invalid password");
-		}
-
-		String token =
-				JwtUtil.generateToken(
-						user.getUsername(),
-						user.getRole().name()
-				);
-
-		return new LoginResponse(token);
-	}
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+        authService.changePassword(request);
+        return ResponseEntity.ok("Password changed successfully");
+    }
 }

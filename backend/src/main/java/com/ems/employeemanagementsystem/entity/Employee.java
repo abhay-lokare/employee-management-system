@@ -1,5 +1,6 @@
 package com.ems.employeemanagementsystem.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +26,9 @@ public class Employee {
 	private String email;
 
 	@Column(nullable = false)
+	private String phone;
+
+	@Column(nullable = false)
 	private String department;
 
 	@Column(nullable = false)
@@ -36,6 +40,16 @@ public class Employee {
 	@Column(nullable = false)
 	private String status;
 
+	@Column(length = 500)
+	private String address;
+
+	@Lob
+	@Column(columnDefinition = "LONGTEXT")
+	private String photo;
+
+	@Column(name = "joining_date")
+	private LocalDate joiningDate;
+
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 
@@ -44,11 +58,13 @@ public class Employee {
 
 	@PrePersist
 	public void prePersist() {
+
 		createdAt = LocalDateTime.now();
 
 		if (status == null || status.isBlank()) {
 			status = "Active";
 		}
+
 	}
 
 	public Employee() {
@@ -86,6 +102,14 @@ public class Employee {
 		this.email = email;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getDepartment() {
 		return department;
 	}
@@ -118,6 +142,30 @@ public class Employee {
 		this.status = status;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public LocalDate getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(LocalDate joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -125,4 +173,5 @@ public class Employee {
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
+
 }

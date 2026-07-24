@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ems.employeemanagementsystem.dto.EmployeeDto;
 import com.ems.employeemanagementsystem.service.EmployeeService;
@@ -97,6 +98,22 @@ public class EmployeeController {
         return ResponseEntity.ok(
                 "Employee deleted successfully"
         );
+    }
+
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<EmployeeDto> uploadEmployeePhoto(
+            @PathVariable Long id,
+            @RequestParam("photo") MultipartFile photo) {
+
+        if (photo.isEmpty() || photo.getContentType() == null || !photo.getContentType().startsWith("image/")) {
+            throw new IllegalArgumentException("Please select a valid image file");
+        }
+
+        if (photo.getSize() > 2 * 1024 * 1024) {
+            throw new IllegalArgumentException("Profile photo must be smaller than 2 MB");
+        }
+
+        return ResponseEntity.ok(employeeService.updateEmployeePhoto(id, photo));
     }
 
     // SEARCH EMPLOYEES
