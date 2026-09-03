@@ -12,7 +12,7 @@ import {
     FaTrash
 } from "react-icons/fa";
 
-import "../../styles/Employees.css";
+import "../../styles/employees.css";
 
 import {
     getEmployees,
