@@ -1,8 +1,6 @@
-import api from "./api";
-
-const ATTENDANCE_URL = "/attendance";
-
-export const getAttendance = () => api.get(ATTENDANCE_URL);
-export const createAttendance = (attendance) => api.post(ATTENDANCE_URL, attendance);
-export const updateAttendance = (id, attendance) => api.put(`${ATTENDANCE_URL}/${id}`, attendance);
-export const deleteAttendance = (id) => api.delete(`${ATTENDANCE_URL}/${id}`);
+import { employeeDepartment, employeeName, getData, nextId, reject, response, saveData } from "./dataStore";
+const mapRecord = (data, record) => ({ ...record, employeeName: employeeName(data, record.employeeId), department: employeeDepartment(data, record.employeeId) });
+export const getAttendance = () => { const data = getData(); return response([...data.attendance].sort((a, b) => String(b.date).localeCompare(String(a.date))).map((record) => mapRecord(data, record))); };
+export const createAttendance = (attendance) => { const data = getData(); if (data.attendance.some((record) => Number(record.employeeId) === Number(attendance.employeeId) && record.date === attendance.date)) return reject("Attendance already exists for this employee and date"); const saved = { ...attendance, id: nextId(data.attendance), employeeId: Number(attendance.employeeId) }; data.attendance.push(saved); saveData(data); return response(mapRecord(data, saved)); };
+export const updateAttendance = (id, attendance) => { const data = getData(); const index = data.attendance.findIndex((record) => Number(record.id) === Number(id)); if (index < 0) return reject("Attendance not found"); data.attendance[index] = { ...attendance, id: Number(id), employeeId: Number(attendance.employeeId) }; saveData(data); return response(mapRecord(data, data.attendance[index])); };
+export const deleteAttendance = (id) => { const data = getData(); data.attendance = data.attendance.filter((record) => Number(record.id) !== Number(id)); saveData(data); return response("Attendance deleted successfully"); };

@@ -1,8 +1,7 @@
-import api from "./api";
-
-const LEAVE_URL = "/leaves";
-
-export const getLeaveRequests = () => api.get(LEAVE_URL);
-export const createLeaveRequest = (leaveRequest) => api.post(LEAVE_URL, leaveRequest);
-export const updateLeaveRequest = (id, leaveRequest) => api.put(`${LEAVE_URL}/${id}`, leaveRequest);
-export const deleteLeaveRequest = (id) => api.delete(`${LEAVE_URL}/${id}`);
+import { employeeDepartment, employeeName, findEmployee, getData, nextId, reject, response, saveData } from "./dataStore";
+const daysBetween = (fromDate, toDate) => Math.floor((new Date(`${toDate}T00:00:00`) - new Date(`${fromDate}T00:00:00`)) / 86400000) + 1;
+const mapRecord = (data, record) => ({ ...record, employeeName: employeeName(data, record.employeeId), employeeEmail: findEmployee(data, record.employeeId)?.email || "", department: employeeDepartment(data, record.employeeId), days: daysBetween(record.fromDate, record.toDate) });
+export const getLeaveRequests = () => { const data = getData(); return response([...data.leaves].sort((a, b) => Number(b.id) - Number(a.id)).map((record) => mapRecord(data, record))); };
+export const createLeaveRequest = (leaveRequest) => { if (leaveRequest.toDate < leaveRequest.fromDate) return reject("End date cannot be before start date"); const data = getData(); const saved = { ...leaveRequest, id: nextId(data.leaves), employeeId: Number(leaveRequest.employeeId), status: "Pending" }; data.leaves.push(saved); saveData(data); return response(mapRecord(data, saved)); };
+export const updateLeaveRequest = (id, leaveRequest) => { const data = getData(); const index = data.leaves.findIndex((record) => Number(record.id) === Number(id)); if (index < 0) return reject("Leave request not found"); data.leaves[index] = { ...data.leaves[index], ...leaveRequest, id: Number(id), employeeId: Number(leaveRequest.employeeId) }; saveData(data); return response(mapRecord(data, data.leaves[index])); };
+export const deleteLeaveRequest = (id) => { const data = getData(); data.leaves = data.leaves.filter((record) => Number(record.id) !== Number(id)); saveData(data); return response("Leave request deleted successfully"); };

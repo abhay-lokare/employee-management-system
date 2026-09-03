@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash, FaKey, FaLock, FaUserShield } from "react-icons/fa";
+import { FaDownload, FaEye, FaEyeSlash, FaKey, FaLock, FaUpload, FaUserShield } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 import "../../styles/Settings.css";
 import { changePassword } from "../../services/authService";
+import { downloadWorkbook, importWorkbook } from "../../services/workbookService";
 
 function Settings() {
     const [form, setForm] = useState({
@@ -45,6 +46,20 @@ function Settings() {
         }
     }
 
+    async function handleImport(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        try {
+            await importWorkbook(file);
+            toast.success("Excel data imported successfully. The app will now refresh.");
+            setTimeout(() => window.location.reload(), 800);
+        } catch (error) {
+            console.error(error);
+            toast.error("Unable to import this Excel workbook.");
+        }
+    }
+
     return (
         <div className="settings-page">
             <div className="page-header"><h1>Settings</h1><p>Manage administrator and employee account passwords.</p></div>
@@ -75,6 +90,14 @@ function Settings() {
                 <button className="save-btn" type="submit">Change Password</button>
                 {message && <p className={`settings-message ${message.includes("successfully") ? "success" : "error"}`}>{message}</p>}
             </form>
+
+            <div className="settings-card backup-settings-card">
+                <div className="settings-card-title"><FaDownload /><div><h2>Excel Data Backup</h2><p>Download all EMS Pro data as an Excel workbook, or import a previously exported workbook. Browser data is stored only on this device.</p></div></div>
+                <div className="backup-actions">
+                    <button className="save-btn" onClick={downloadWorkbook}><FaDownload /> Export to Excel</button>
+                    <label className="import-btn"><FaUpload /> Import from Excel<input type="file" accept=".xlsx,.xls" onChange={handleImport} /></label>
+                </div>
+            </div>
         </div>
     );
 }
